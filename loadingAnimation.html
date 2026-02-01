@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Loading Animation Simulator</title>
+</head>
+<body style="font-family: monospace; text-align: center; padding-top: 100px; background-color: #f4f4f4;">
+
+  <div id="loader" style="font-size: 2rem; margin-bottom: 20px;">Loading...</div>
+  <div id="status">Please wait</div>
+
+  <script>
+// 1. This function contains the entire loading animation logic so it can be started cleanly
+    function runLoadingAnimation() {
+// 2. References the loader element so JavaScript can visually update the animation frame
+      const loader = document.getElementById("loader");
+// References the status element so text feedback can change independently of the loader
+      const status = document.getElementById("status");
+// Holds the visual frames that will be rotated through to simulate motion
+      const frames = ["⏳", "⌛", ".", "..", "..."];
+// Tracks the current position in the frames array
+      let index = 0;
+// Counts how many full animation cycles have completed
+      let cycleCount = 0;
+// Defines how many cycles should run before stopping the animation
+      const maxCycles = 10;
+// NEW FEATURE:
+// Controls animation speed and allows it to change dynamically
+      let speed = 500;
+// setInterval schedules this function to run repeatedly without blocking the page
+    const interval = setInterval(() => {
+
+// Updates the loader text by selecting the current frame based on index
+      loader.textContent = frames[index % frames.length];
+
+// Moves to the next frame for the next scheduled interval
+      index++;
+
+// When all frames have displayed once, one full cycle is completed
+      if (index % frames.length === 0) {
+        cycleCount++;
+// NEW FEATURE CONT.:Gradually speeds up the animation as it progresses
+        if (speed > 200) {
+          speed -= 50;
+          clearInterval(interval);
+          runLoadingAnimation();
+          return;
+        }
+      }
+// Once the maximum number of cycles is reached, the animation stops
+      if (cycleCount >= maxCycles) {
+// clearInterval stops the asynchronous loop created by setInterval
+        clearInterval(interval);
+// Replaces the animation with a completion indicator
+        loader.textContent = "✅";
+// Updates the status message to signal completion
+        status.textContent = "Done!";
+      }
+// This delay controls how often the asynchronous loop runs
+    }, speed);
+  }
+
+  // Starts the animation automatically when the page loads
+  runLoadingAnimation();
+  // CREATIVE IDEA:
+  // Add a background color transition that slowly shifts as cycleCount increases
+</script>
