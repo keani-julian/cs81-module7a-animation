@@ -14,26 +14,25 @@
     function runLoadingAnimation() {
 // 2. References the loader element so JavaScript can visually update the animation frame
       const loader = document.getElementById("loader");
-// References the status element so text feedback can change independently of the loader
+// 3. References the status element so text feedback can change independently of the loader
       const status = document.getElementById("status");
-// Holds the visual frames that will be rotated through to simulate motion
+// 4. Holds the visual frames that will be rotated through to simulate motion
       const frames = ["⏳", "⌛", ".", "..", "..."];
-// Tracks the current position in the frames array
+// 5. Tracks the current position in the frames array
       let index = 0;
-// Counts how many full animation cycles have completed
+// 6. Counts how many full animation cycles have completed
       let cycleCount = 0;
-// Defines how many cycles should run before stopping the animation
+// 7.Defines how many cycles should run before stopping the animation
       const maxCycles = 10;
-// NEW FEATURE:
-// Controls animation speed and allows it to change dynamically
+// NEW FEATURE:Controls animation speed and allows it to change dynamically
       let speed = 500;
-// setInterval schedules this function to run repeatedly without blocking the page
+// 8. setInterval schedules this function to run repeatedly without blocking the page
     const interval = setInterval(() => {
 
-// Updates the loader text by selecting the current frame based on index
+// 9. Updates the loader text by selecting the current frame based on index
       loader.textContent = frames[index % frames.length];
 
-// Moves to the next frame for the next scheduled interval
+// 10. Moves to the next frame for the next scheduled interval
       index++;
 
 // When all frames have displayed once, one full cycle is completed
